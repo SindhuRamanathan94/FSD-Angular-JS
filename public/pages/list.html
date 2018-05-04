@@ -1,0 +1,111 @@
+<div class="row">
+
+  <div class="col-md-12 col-xs-12 col-sm-12" style="background-color: white">
+    <div class="row x_title">
+
+      <div class="col-md-6">
+
+        <h3>Book List <small></small></h3>
+
+        <div class="alert alert-info" ng-if='removedMessage' style='background-color:rgb(63, 193, 165);'>
+          <strong>Successfully Removed</strong>
+        </div>
+      </div>
+
+      <!-- add Book button-->
+      <div class="col-md-6 col-xs-6 col-sm-6" style='margin-top: 9px;'>
+        <button type="button" ng-click='AddBook()' class="btn btn-default btn-sm pull-right" style='border-radius: 15px;'>
+                        <span class="fa fa-plus-circle " style='color:black;'></span> Add Book
+                    </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row" style="background-color: white">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+
+      <div class="panel-group category-products" id="accordian">
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <ul class="list-group">
+              <li class="list-group-item" ng-click='resetFilter()'><a style="cursor: pointer">All Categories</a></li>
+              <li class="list-group-item" ng-repeat="item in categories" ng-click="insertFn(item)"><a style="cursor: pointer">{{item}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-8 col-sm-8 col-xs-8">
+
+      <!-- Search Box-->
+      <div class="input-group">
+        <input type="text" id="searchText" class="form-control" ng-model='filterSearch' placeholder="Search for..." ondragover="allowDrop(event)"
+          ondrop="drop(event)">
+          <span class="input-group-btn">
+                      <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+      </div>
+      <!-- Search box end-->
+
+      <!--
+
+            Write Your Code here to list the Books as shown in requirement document
+
+
+            -->
+      <div class="container">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Controls</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in Products | filter : filterSearch">
+              <td>{{item.name}}</td>
+              <td>{{item.category}}</td>
+              <td>{{item.description}}</td>
+              <td>{{item.price}}</td>
+              <td>
+                <p style="font-family:Times New Roman;"><i class="fa fa-edit" ng-click='service.getProductId(item)' ui-sref='bookUpdate({id : item._id})'></i> Edit</p>
+                <p style="font-family:Times New Roman;color:darkred;"><i class="fa fa-trash-o" data-toggle="modal" data-target="#myModal" ng-click='storeId(item._id)' ;style="color:darkred;"></i>Remove</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!--Modal Content for Remove-->
+
+    <!-- Delete Confirmation Modal-->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Are You Sure You Want to Remove?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" ng-click='remove()' data-toggle="modal" data-dismiss="modal">Remove</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Delete Confirmation Modal ends-->
+
+  </div>
+
+</div>
